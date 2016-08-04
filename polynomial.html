@@ -1,0 +1,71 @@
+<html>
+<head>
+  <script src="regress.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div id='plotDiv'></div>
+  <script>
+    var trainingData = [];
+    for (var i = 0; i < 100; i++) {
+      var x = i;
+      var y = (x + Math.pow(x,2) - (3/4)*Math.pow(x,3) + (1/2)*Math.pow(x,4) - (1/4)*Math.pow(x,5) + (1/8)*Math.pow(x,6));
+      trainingData[i] = [x,y];
+    }
+
+    var testData = [];
+    for (var i = 0; i < 100; i++) {
+      var x = i;
+      var y = (x + 2*Math.pow(x,2)) + (Math.random()*4.5e3);
+      testData[i] = [x,y];
+    }
+
+    var transformedTraining  = trainingData.map((elem) => [elem[0],Math.pow(elem[0],2),elem[1]]);
+
+
+
+    var weights = regression(transformedTraining, 1.5e-10, 1.0, 1000);
+    console.log(weights);
+
+    // var range = getMaxOfArray(column(myObservations,0));
+    // var steps = myObservations.length / range;
+    //var predictionTwo = [...myObservations.map((elem, index) => [(index*steps),weights[0] + ((index*steps) * weights[1]) + (Math.pow(index*steps,2) * weights[2])])];
+    var predictions = [...testData.map((elem) => makePrediction(elem, weights))];
+
+    function makePrediction(elem, weights){
+      var x = elem[0];
+      var y = weights[0] + (weights[1] * x) + (weights[2] * Math.pow(x,2));
+      return [x,y];
+    }
+
+    // var predictionTwo = [];
+    // var range = getMaxOfArray(column(myObservations,0));
+    // var steps = myObservations.length / range;
+    // for (var i = 0; i < myObservations.length + 1; i++) {
+    //   var observation = i*steps;
+    //   var prediction = weights[0] + (observation * weights[1]);
+    //   predictionTwo.push([observation, prediction]);
+    // }
+
+    var trace1 = {
+      x: column(trainingData,0),
+      y: column(trainingData,1),
+      mode:'markers'
+    };
+
+    var trace2 = {
+      x: column(predictions,0),
+      y: column(predictions,1),
+      mode: 'lines'
+    };
+
+    var plotmyData = [trace1, trace2];
+
+    Plotly.newPlot('plotDiv',plotmyData);
+
+    function getMaxOfArray(array){
+      return Math.max.apply(null, array);
+    }
+  </script>
+</body>
+</html>

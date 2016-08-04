@@ -1,0 +1,76 @@
+<html>
+<head>
+  <script src="regress.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div id='plotDiv'></div>
+  <script>
+
+    var trainingData = [];
+    for (var i = 0; i < 100; i++) {
+      var x = i;
+      var y = (Math.random()*10);
+      var z = x * 2 + (Math.random()*50);
+      trainingData[i] = [x,y,z];
+    }
+
+    var testData = [];
+    for (var i = 0; i < 100; i++) {
+      var x = i;
+      var y = (Math.random()*10);
+      var z = x * 2 + (Math.random()*50);
+      testData[i] = [x,y,z];
+    }
+
+
+    var weights = regression(trainingData, 1.5e-7, 1.0, 1000);
+    console.log(weights);
+
+    var predictions = [...testData.map((elem) => makePrediction(elem, weights))];
+    console.log(predictions);
+
+    function makePrediction(elem, weights){
+      var x = elem[0];
+      var y = elem[1];
+      var z = weights[0] + (weights[1] * x) + (weights[2] * y);
+      return [x,y,z];
+    }
+
+    var meshTrace = {
+      opacity:0.6,
+      color:'rgb(245, 155, 20)',
+      type:'mesh3d',
+      x: column(predictions,0),
+      y: column(predictions,1),
+      z: column(predictions,2)
+    };
+
+    var observationTrace = {
+      x: column(trainingData,0),
+      y: column(trainingData,1),
+      z: column(trainingData,2),
+      mode: 'markers',
+      marker:{
+        size:2,
+        color: 'rgb(127, 127, 127)',
+        opacity: 0.9
+      },
+      type: 'scatter3d'
+    };
+
+    var layout = {
+      height:900,
+      width:900
+    };
+
+    var data = [observationTrace, meshTrace];
+    Plotly.newPlot('plotDiv',data, layout);
+
+
+    function getMaxOfArray(array){
+      return Math.max.apply(null, array);
+    }
+  </script>
+</body>
+</html>
