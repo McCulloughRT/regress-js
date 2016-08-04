@@ -15,7 +15,7 @@ var weights = regress(data, stepSize=1.5e-10, tolerence=1.0, maxIterations=1000)
 ## Input:
 Training data is expected to be in 2d matrix format with each row corresponding to a unique element (or observation) and each column corresponding to a feature of that element. The last column of the matrix is assumed to be the target variable to be predicted.
 
-For example, if our goal was to predict how square footage effects the cost of a house, we would prepare a matrix with each row corresponding to a known house with house square footage as the first item of the row and house price as the second.
+For example, if our goal was to predict how square footage effects the cost of a house, we would prepare a matrix with each row corresponding to a known house with square footage as the first item of the row and house price as the second.
 ~~~~
 var trainingData = [[2000,180000], // each row is a house
                     [1700,150000], // each column is a feature of the house
