@@ -27,9 +27,6 @@
     var weights = regression(transformedTraining, 1.5e-10, 1.0, 1000);
     console.log(weights);
 
-    // var range = getMaxOfArray(column(myObservations,0));
-    // var steps = myObservations.length / range;
-    //var predictionTwo = [...myObservations.map((elem, index) => [(index*steps),weights[0] + ((index*steps) * weights[1]) + (Math.pow(index*steps,2) * weights[2])])];
     var predictions = [...testData.map((elem) => makePrediction(elem, weights))];
 
     function makePrediction(elem, weights){
@@ -37,15 +34,6 @@
       var y = weights[0] + (weights[1] * x) + (weights[2] * Math.pow(x,2));
       return [x,y];
     }
-
-    // var predictionTwo = [];
-    // var range = getMaxOfArray(column(myObservations,0));
-    // var steps = myObservations.length / range;
-    // for (var i = 0; i < myObservations.length + 1; i++) {
-    //   var observation = i*steps;
-    //   var prediction = weights[0] + (observation * weights[1]);
-    //   predictionTwo.push([observation, prediction]);
-    // }
 
     var trace1 = {
       x: column(trainingData,0),
