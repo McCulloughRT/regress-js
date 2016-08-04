@@ -43,7 +43,7 @@ For more complicated regressions, such as multivariate polynomial regression, ju
 ~~~~
 var weights = [2.44, 0.48, 4.32, 2.87, 1.99];
 
-function predict(x_1,x_2,x_3 weights){
+function predict(x_1, x_2, x_3, weights){
   var y = weights[0] + (weights[1] * x_1) + (weights[2] * Math.pow(x_1, 2)) + (weights[3] * x_2) + (weights[4] * x_3); 
   return y;
 });
