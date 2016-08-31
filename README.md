@@ -35,7 +35,7 @@ function predict(x, weights){
   return y;
 });
 
-console.log(predict(10)); // outputs 7.24
+console.log(predict(10, weights)); // outputs 7.24
 ~~~~
 This follows the form for a simple linear equation: y = a + bx
 
