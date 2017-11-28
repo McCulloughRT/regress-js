@@ -38,7 +38,7 @@ export default class LinearRegression {
       return data.map(e => LinAlg.dot(e, this.model.weights));
     } else {
       const data_bias = this._addIntercept(data);
-      return data.map(e => LinAlg.dot(e, this.model.weights));
+      return data_bias.map(e => LinAlg.dot(e, this.model.weights));
     }
   }
 
@@ -92,10 +92,10 @@ export default class LinearRegression {
 
   _addIntercept(data) {
     const cloneData = JSON.parse(JSON.stringify(data));
-  for (var i = 0; i < cloneData.length; i++) {
-    cloneData[i].unshift(1.0);
-  }
-  return cloneData;
+    for (var i = 0; i < cloneData.length; i++) {
+      cloneData[i].unshift(1.0);
+    }
+    return cloneData;
   }
 
   _featureDerivative(errors, feature) {
