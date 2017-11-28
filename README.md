@@ -1,5 +1,5 @@
 # regress-js
-A JavaScript (ES6) library for performing in-browser linear regression.
+A JavaScript library for performing in-browser linear regression.
 
 Uses gradient descent with residual sum of squared error to perform simple linear regression, polynomial regression, and multivariate polynomial regression.
 
